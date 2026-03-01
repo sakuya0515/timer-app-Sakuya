@@ -24,8 +24,8 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    background: linear-gradient(135deg, #E0FFFF, #48D1CC);
-    /* Aqua blue gradient */
+    background: linear-gradient(135deg, #e0f7fa, #81d4fa, #4dd0e1);
+    /* Elegant Tiffany blue gradient */
     overflow: hidden;
     position: relative;
     color: var(--text-main);
@@ -63,7 +63,7 @@ body {
 .blob2 {
     width: 500px;
     height: 500px;
-    background: #00CED1;
+    background: var(--turquoise-dark);
     /* Deep Aqua */
     bottom: -150px;
     right: -100px;
@@ -187,18 +187,41 @@ h1 {
     display: flex;
     gap: 12px;
     margin-bottom: 32px;
+    width: 100%;
+    justify-content: center;
+}
+
+.preset-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+    flex: 1;
+    max-width: 140px;
+}
+
+.preset-label {
+    font-size: 0.75rem;
+    color: var(--text-main);
+    text-align: center;
+    line-height: 1.3;
+    height: 2.6em;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
 }
 
 .preset-btn {
     background: transparent;
     border: 1px solid var(--border-glass);
     color: var(--text-main);
-    padding: 8px 16px;
+    padding: 10px 16px;
     border-radius: 20px;
-    font-size: 0.9rem;
+    font-size: 1rem;
     font-weight: 600;
     cursor: pointer;
     transition: all 0.2s ease;
+    width: 100%;
 }
 
 .preset-btn:hover,

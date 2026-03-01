@@ -1,5 +1,5 @@
 // Timer State
-let totalTime = 300; // default 5 minutes
+let totalTime = 60; // default 1 minute
 let timeLeft = totalTime;
 let timerInterval = null;
 let isRunning = false;
@@ -26,7 +26,7 @@ function updateDisplay() {
     const minutes = Math.floor(timeLeft / 60);
     const seconds = timeLeft % 60;
     timeDisplay.textContent = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
-    
+
     // Update circle progress
     const progress = timeLeft / totalTime;
     const offset = circumference - progress * circumference;
@@ -48,14 +48,14 @@ function setTimer(seconds) {
 function startTimer() {
     if (isRunning) return;
     if (timeLeft <= 0) return;
-    
+
     isRunning = true;
     startPauseBtn.textContent = '一時停止';
-    
+
     timerInterval = setInterval(() => {
         timeLeft--;
         updateDisplay();
-        
+
         if (timeLeft <= 0) {
             pauseTimer();
             playTimerEndSound();
@@ -99,23 +99,23 @@ function initAudio() {
 
 function playTone(freq, timeOffset, duration) {
     if (!audioCtx) return;
-    
+
     const osc = audioCtx.createOscillator();
     const gainNode = audioCtx.createGain();
-    
+
     // Use sine wave for a soft, relaxing natural sound
     osc.type = 'sine';
     osc.frequency.setValueAtTime(freq, audioCtx.currentTime + timeOffset);
-    
+
     // ADSR Envelope
     const startTime = audioCtx.currentTime + timeOffset;
     gainNode.gain.setValueAtTime(0, startTime);
     gainNode.gain.linearRampToValueAtTime(0.3, startTime + 0.05); // Attack
     gainNode.gain.exponentialRampToValueAtTime(0.01, startTime + duration); // Decay
-    
+
     osc.connect(gainNode);
     gainNode.connect(audioCtx.destination);
-    
+
     osc.start(startTime);
     osc.stop(startTime + duration);
 }
@@ -125,11 +125,11 @@ function playTimerEndSound() {
     // A bright, energetic, but soft arpeggio (C Major 9)
     // C5, E5, G5, B5, D6
     const notes = [523.25, 659.25, 783.99, 987.77, 1174.66];
-    
+
     notes.forEach((freq, index) => {
         playTone(freq, index * 0.15, 2.0); // 150ms delay between notes
     });
-    
+
     // Add a final soft chord
     setTimeout(() => {
         playTone(523.25, 0, 3.0);
@@ -147,21 +147,23 @@ resetBtn.addEventListener('click', resetTimer);
 
 increaseBtn.addEventListener('click', () => {
     setTimer(totalTime + 60);
+    presetBtns.forEach(b => b.classList.remove('active'));
 });
 
 decreaseBtn.addEventListener('click', () => {
     if (totalTime > 60) {
         setTimer(totalTime - 60);
+        presetBtns.forEach(b => b.classList.remove('active'));
     }
 });
 
 presetBtns.forEach(btn => {
-    btn.addEventListener('click', (e) => {
-        const seconds = parseInt(e.target.dataset.time);
+    btn.addEventListener('click', () => {
+        const seconds = parseInt(btn.dataset.time);
         setTimer(seconds);
-        
+
         presetBtns.forEach(b => b.classList.remove('active'));
-        e.target.classList.add('active');
+        btn.classList.add('active');
     });
 });
 

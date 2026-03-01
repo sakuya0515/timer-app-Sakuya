@@ -29,13 +29,22 @@
                     <circle class="progress-ring__circle" stroke="#ffffff" stroke-width="8" fill="transparent" r="110"
                         cx="120" cy="120" />
                 </svg>
-                <div class="time-display" id="time-display">05:00</div>
+                <div class="time-display" id="time-display">01:00</div>
             </div>
 
             <div class="presets">
-                <button class="preset-btn" data-time="300">5分</button>
-                <button class="preset-btn" data-time="600">10分</button>
-                <button class="preset-btn" data-time="1500">25分</button>
+                <div class="preset-wrapper">
+                    <span class="preset-label">メモ書き<br>（0秒思考）</span>
+                    <button class="preset-btn active" data-time="60">1分</button>
+                </div>
+                <div class="preset-wrapper">
+                    <span class="preset-label">スピーチ・<br>休息</span>
+                    <button class="preset-btn" data-time="180">3分</button>
+                </div>
+                <div class="preset-wrapper">
+                    <span class="preset-label">マインドフルネス</span>
+                    <button class="preset-btn" data-time="300">5分</button>
+                </div>
             </div>
 
             <div class="controls">
